@@ -14,7 +14,7 @@ namespace Lbl_ServerApp.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1"+DateTime.Now.Ticks, "value2"+DateTime.Now.ToString() };
+            return new string[] { "value1"+DateTime.Now.Ticks, "value2"+DateTime.Now };
         }
 
         // GET api/values/5
