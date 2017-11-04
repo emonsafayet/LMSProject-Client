@@ -3,3 +3,6 @@
 ################################################################################
 
 /packages
+/LMS-WebApplication/obj/Debug
+/Lbl-ServerApp/obj/Debug
+/.vs
