@@ -79,7 +79,7 @@ namespace Lbl_ServerApp.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            student.Id = Guid.NewGuid().ToString();
             db.Students.Add(student);
 
             try

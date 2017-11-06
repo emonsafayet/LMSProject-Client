@@ -26,9 +26,25 @@
                 console.log(errorResponse);
                 deffered.reject(errorResponse);
             };
-            self.http.get("http://localhost:58048/api/values").then(f1, f2);
+            self.http.get("http://localhost:58048/api/students").then(f1, f2);
             return deffered.promise;
         }
+        save(student : Student): angular.IPromise<any> {
+            var self = this;
+            var deffered = self.q.defer();
+            var f1 = function (sucessreponse) {
+                console.log(sucessreponse);
+                deffered.resolve(sucessreponse);
+            };
+            var f2 = function (errorResponse) {
+
+                console.log(errorResponse);
+                deffered.reject(errorResponse);
+            };
+            self.http.post("http://localhost:58048/api/students",student).then(f1, f2);
+            return deffered.promise;
+        }
+
     }
     angular.module('app').service("StudentService", App.StudentService);
 }

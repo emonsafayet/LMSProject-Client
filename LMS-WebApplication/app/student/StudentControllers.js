@@ -3,9 +3,6 @@ var App;
     var Student = (function () {
         function Student() {
         }
-        Student.prototype.getinfo = function () {
-            return this.name + " " + this.phone;
-        };
         return Student;
     }());
     App.Student = Student;
@@ -15,12 +12,16 @@ var App;
             this.studentService = studentService;
             console.log("I am in Student Controller");
         }
-        StudentController.prototype.display = function () {
-            this.information = this.student.getinfo();
-        };
         StudentController.prototype.add = function () {
-            this.studentService.students.push(this.student);
-            this.student = new Student();
+            var self = this;
+            var success = function (response) {
+                console.log(response);
+                self.reset();
+            };
+            var error = function (errorResponse) {
+                console.log(errorResponse);
+            };
+            this.studentService.save(self.student).then(success, error);
         };
         StudentController.prototype.reset = function () {
             this.student = new Student();
@@ -32,8 +33,15 @@ var App;
     var StudentsController = (function () {
         function StudentsController(studentService) {
             this.studentService = studentService;
-            this.students = this.studentService.students;
-            console.log("I am in Students Controller", this.students);
+            var self = this;
+            var success = function (response) {
+                self.students = response.data;
+                console.log("I am in Students Controller", self.students);
+            };
+            var error = function (errorResponse) {
+                alert(errorResponse);
+            };
+            this.studentService.get().then(success, error);
         }
         return StudentsController;
     }());
