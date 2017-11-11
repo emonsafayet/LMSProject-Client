@@ -34,6 +34,7 @@ var App;
         function StudentsController(studentService) {
             this.studentService = studentService;
             var self = this;
+            self.students = [];
             var success = function (response) {
                 self.students = response.data;
                 console.log("I am in Students Controller", self.students);
@@ -41,8 +42,19 @@ var App;
             var error = function (errorResponse) {
                 alert(errorResponse);
             };
-            this.studentService.get().then(success, error);
+            this.studentService.search("").then(success, error);
         }
+        StudentsController.prototype.search = function () {
+            var self = this;
+            var success = function (response) {
+                console.log(response);
+                self.students = response.data;
+            };
+            var error = function (errorResponse) {
+                console.log(errorResponse);
+            };
+            this.studentService.search(self.keyword).then(success, error);
+        };
         return StudentsController;
     }());
     StudentsController.$inject = ["StudentService"];
