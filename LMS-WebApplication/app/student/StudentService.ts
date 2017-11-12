@@ -50,7 +50,7 @@
             self.http.post("http://localhost:55250/api/student", student).then(f1, f2);
             return deffered.promise;
         }
-        search(keyword): angular.IPromise<any> {
+        search(request: StudentRequestModel): angular.IPromise<any> {
             var self = this;
             var deffered = self.q.defer();
             var f1 = function (sucessreponse) {
@@ -62,12 +62,11 @@
                 console.log(errorResponse);
                 deffered.reject(errorResponse);
             };
-
-            var requestModel = { Name: keyword, Phone: keyword };
-            self.http.post("http://localhost:55250/api/StudentQuery", requestModel).then(f1, f2);
+            
+            self.http.post("http://localhost:55250/api/StudentQuery", request).then(f1, f2);
             return deffered.promise;
         }
 
     }
-    angular.module('app').service("StudentService", App.StudentService);
+    angular.module('app').service("StudentService", StudentService);
 }

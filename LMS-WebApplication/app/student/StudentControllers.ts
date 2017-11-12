@@ -1,8 +1,12 @@
 ﻿module App {
     export class Student {
-        id: string;
-        name: string;
-        phone: string;
+        public id: string;
+        public name: string;
+        public phone: string;
+    }
+    export class StudentRequestModel{
+        public name: string;
+        public phone: string;
     }
 
     class StudentController {
@@ -36,14 +40,17 @@
     angular.module('app').controller('StudentController', StudentController);
 
     class StudentsController {
-        keyword: string;
+        searchRequest: StudentRequestModel;
         students: Student[];
         studentService: StudentService;
+        
         static $inject = ["StudentService"];
         constructor(studentService: StudentService) {
             this.studentService = studentService;
             var self = this;
             self.students = [];
+            self.searchRequest = new StudentRequestModel();
+
             let success = function (response) {
                 self.students = response.data;
                 console.log("I am in Students Controller", self.students);
@@ -53,7 +60,7 @@
                 alert(errorResponse);
             };
             console.log("I am in students controller constructor");
-            this.studentService.search("").then(success, error);
+            this.studentService.search(self.searchRequest).then(success, error);
         }
         search() {
             var self = this;
@@ -64,7 +71,7 @@
             let error = function (errorResponse) {
                 console.log(errorResponse);
             };
-            this.studentService.search(self.keyword).then(success, error);
+            this.studentService.search(self.searchRequest).then(success, error);
         }
     }
         angular.module('app').controller('StudentsController', StudentsController);

@@ -6,6 +6,12 @@ var App;
         return Student;
     }());
     App.Student = Student;
+    var StudentRequestModel = (function () {
+        function StudentRequestModel() {
+        }
+        return StudentRequestModel;
+    }());
+    App.StudentRequestModel = StudentRequestModel;
     var StudentController = (function () {
         function StudentController(studentService) {
             this.student = new Student;
@@ -35,6 +41,7 @@ var App;
             this.studentService = studentService;
             var self = this;
             self.students = [];
+            self.searchRequest = new StudentRequestModel();
             var success = function (response) {
                 self.students = response.data;
                 console.log("I am in Students Controller", self.students);
@@ -42,7 +49,8 @@ var App;
             var error = function (errorResponse) {
                 alert(errorResponse);
             };
-            this.studentService.search("").then(success, error);
+            console.log("I am in students controller constructor");
+            this.studentService.search(self.searchRequest).then(success, error);
         }
         StudentsController.prototype.search = function () {
             var self = this;
@@ -53,7 +61,7 @@ var App;
             var error = function (errorResponse) {
                 console.log(errorResponse);
             };
-            this.studentService.search(self.keyword).then(success, error);
+            this.studentService.search(self.searchRequest).then(success, error);
         };
         return StudentsController;
     }());

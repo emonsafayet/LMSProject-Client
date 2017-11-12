@@ -37,7 +37,7 @@ var App;
             self.http.post("http://localhost:55250/api/student", student).then(f1, f2);
             return deffered.promise;
         };
-        StudentService.prototype.search = function (keyword) {
+        StudentService.prototype.search = function (request) {
             var self = this;
             var deffered = self.q.defer();
             var f1 = function (sucessreponse) {
@@ -48,14 +48,13 @@ var App;
                 console.log(errorResponse);
                 deffered.reject(errorResponse);
             };
-            var requestModel = { Name: keyword, Phone: keyword };
-            self.http.post("http://localhost:55250/api/StudentQuery", requestModel).then(f1, f2);
+            self.http.post("http://localhost:55250/api/StudentQuery", request).then(f1, f2);
             return deffered.promise;
         };
         return StudentService;
     }());
     StudentService.$inject = ["$http", "$q"];
     App.StudentService = StudentService;
-    angular.module('app').service("StudentService", App.StudentService);
+    angular.module('app').service("StudentService", StudentService);
 })(App || (App = {}));
 //# sourceMappingURL=StudentService.js.map
