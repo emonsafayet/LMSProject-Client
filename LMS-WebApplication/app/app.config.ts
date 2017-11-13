@@ -1,13 +1,10 @@
 ﻿module App {
     var app = angular.module('app', ["ui.router"]);
 
-    class Configuration {
-        //configure the routes
-       // state manager
+    class Configuration {r
         static $inject = ["$stateProvider","$urlRouterProvider"];
         constructor(stateProvider: angular.ui.IStateProvider, urlRouterProvider: angular.ui.IUrlRouterProvider) {
-           //our code
-            urlRouterProvider.otherwise("/");
+             urlRouterProvider.otherwise("/");
             stateProvider.state("root",
                 {
                     abstract: true,
@@ -16,10 +13,6 @@
                 })
                 .state("root.home",
                 {
-                    //url
-                    //route parameter or templateUrl
-                    //controller
-                    //view
                     url: "/",
                     templateUrl: "partials/home/home.tpl.html",
                     controller: "HomeController",

@@ -13,28 +13,7 @@
             this.http = http;
             this.q = q;
 
-        }
-        get(): angular.IPromise<any> {
-            var self = this;
-            var deffered = self.q.defer();
-            var f1 = function (sucessreponse) {
-                console.log(sucessreponse);
-                if (sucessreponse.myBusinessCode === 12345) {
-                    deffered.reject("invaild biz code ,sorry");
-
-                } deffered.resolve(sucessreponse);
-            };
-
-
-
-            var f2 = function (errorResponse) {
-
-                console.log(errorResponse);
-                deffered.reject(errorResponse);
-            };
-            //self.http.get("http://localhost:55250/api/StudentQuery").then(f1, f2);
-            return deffered.promise;
-        }
+        }   
         save(student: Student): angular.IPromise<any> {
             var self = this;
             var deffered = self.q.defer();
@@ -65,7 +44,7 @@
             
             self.http.post("http://localhost:55250/api/StudentQuery", request).then(f1, f2);
             return deffered.promise;
-        }
+        }       
 
     }
     angular.module('app').service("StudentService", StudentService);

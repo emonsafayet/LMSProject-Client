@@ -3,7 +3,6 @@ var App;
     var app = angular.module('app', ["ui.router"]);
     var Configuration = (function () {
         function Configuration(stateProvider, urlRouterProvider) {
-            //our code
             urlRouterProvider.otherwise("/");
             stateProvider.state("root", {
                 abstract: true,
@@ -11,10 +10,6 @@ var App;
                 template: "<div ui-view class=\"container-fluid slide\"></div>",
             })
                 .state("root.home", {
-                //url
-                //route parameter or templateUrl
-                //controller
-                //view
                 url: "/",
                 templateUrl: "partials/home/home.tpl.html",
                 controller: "HomeController",
@@ -35,8 +30,6 @@ var App;
         }
         return Configuration;
     }());
-    //configure the routes
-    // state manager
     Configuration.$inject = ["$stateProvider", "$urlRouterProvider"];
     // register class which and How
     angular.module('app').config(Configuration);

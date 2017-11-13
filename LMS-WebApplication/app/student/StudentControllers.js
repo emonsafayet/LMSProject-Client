@@ -63,6 +63,12 @@ var App;
             };
             this.studentService.search(self.searchRequest).then(success, error);
         };
+        StudentsController.prototype.sort = function (property) {
+            var self = this;
+            self.searchRequest.orderBy = property;
+            self.searchRequest.isAscending = true;
+            self.search();
+        };
         return StudentsController;
     }());
     StudentsController.$inject = ["StudentService"];

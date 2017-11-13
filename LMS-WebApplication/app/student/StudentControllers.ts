@@ -1,12 +1,14 @@
 ﻿module App {
     export class Student {
-        public id: string;
-        public name: string;
-        public phone: string;
+         id: string;
+         name: string;
+         phone: string;
     }
     export class StudentRequestModel{
-        public name: string;
-        public phone: string;
+         name: string;
+         phone: string;
+         orderBy: string;
+         isAscending: boolean;
     }
 
     class StudentController {
@@ -72,6 +74,13 @@
                 console.log(errorResponse);
             };
             this.studentService.search(self.searchRequest).then(success, error);
+        }
+
+        sort(property: string) {
+            var self = this;
+            self.searchRequest.orderBy = property;
+            self.searchRequest.isAscending = true;
+            self.search();
         }
     }
         angular.module('app').controller('StudentsController', StudentsController);
