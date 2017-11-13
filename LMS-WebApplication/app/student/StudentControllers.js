@@ -42,6 +42,7 @@ var App;
             var self = this;
             self.students = [];
             self.searchRequest = new StudentRequestModel();
+            self.searchRequest.page = 1;
             var success = function (response) {
                 self.students = response.data;
                 console.log("I am in Students Controller", self.students);
@@ -66,8 +67,20 @@ var App;
         StudentsController.prototype.sort = function (property) {
             var self = this;
             self.searchRequest.orderBy = property;
-            self.searchRequest.isAscending = true;
+            self.searchRequest.isAscending = !self.searchRequest.isAscending;
             self.search();
+        };
+        StudentsController.prototype.next = function () {
+            var self = this;
+            self.searchRequest.page = self.searchRequest.page + 1;
+            self.search();
+        };
+        StudentsController.prototype.previous = function () {
+            var self = this;
+            if (self.searchRequest.page > 1) {
+                self.searchRequest.page = self.searchRequest.page - 1;
+                self.search();
+            }
         };
         return StudentsController;
     }());

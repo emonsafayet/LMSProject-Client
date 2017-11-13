@@ -17,3 +17,6 @@
         </tr>
     </tbody>
 </table>
+<button  ng-show="vm.searchRequest.page >1" ng-click="vm.previous()">Previous</button>
+<label>Current Page:{{vm.searchRequest.page}}</label>
+<button  ng-click="vm.next()">Next</button>

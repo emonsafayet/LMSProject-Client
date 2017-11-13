@@ -9,6 +9,8 @@
          phone: string;
          orderBy: string;
          isAscending: boolean;
+         page: number;
+         keyword: string;
     }
 
     class StudentController {
@@ -52,6 +54,8 @@
             var self = this;
             self.students = [];
             self.searchRequest = new StudentRequestModel();
+            self.searchRequest.page = 1;
+
 
             let success = function (response) {
                 self.students = response.data;
@@ -79,8 +83,23 @@
         sort(property: string) {
             var self = this;
             self.searchRequest.orderBy = property;
-            self.searchRequest.isAscending = true;
+            self.searchRequest.isAscending = !self.searchRequest.isAscending;
             self.search();
+        }
+        next() {
+            var self = this;
+    
+            self.searchRequest.page = self.searchRequest.page + 1;
+            self.search();
+        }
+        previous() {
+            var self = this;
+            if (self.searchRequest.page > 1)
+            {
+                self.searchRequest.page = self.searchRequest.page - 1;
+                self.search();
+            }
+           
         }
     }
         angular.module('app').controller('StudentsController', StudentsController);
